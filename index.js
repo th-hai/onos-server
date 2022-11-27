@@ -6,7 +6,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const router = require('./routes/index');
 
-
+require('dotenv').config()
 // set up dependencies
 const app = express();
 app.use(bodyParser.json());
@@ -17,9 +17,9 @@ app.use(logger('dev'));
 app.use(cors());
 
 app.use('/api/', router);
-
+const MONGOURL = process.env.MONGO_URL;
 // set up port number
-mongoose.connect('mongodb://dbUser:LAXiwJt8AyEdYg0h@cluster0-shard-00-00.wnl9y.mongodb.net:27017/Onos?ssl=true&replicaSet=atlas-of48xc-shard-0&authSource=admin&retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=> {
     console.log('Database connected');
   })
