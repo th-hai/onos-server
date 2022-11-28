@@ -3,7 +3,6 @@ const Transaction = require('../models/transaction');
 
 exports.getAllUsers = async (req, res) => {
     try {
-        res.header("Access-Control-Allow-Origin", "*");
         const users = await User.find();
         res.status(200).json(users);
     } catch (error) {
@@ -142,7 +141,6 @@ exports.bulkUpdateUserMoney = async (req, res) => {
             res.status(200).json(transaction);
         }
 
-        res.status(200).json(users);
     } catch (error) {
         console.log(error)
         res.status(500).json(error);
