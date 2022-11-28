@@ -13,8 +13,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
-// enable cors
 app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use('/api/', router);
 const MONGOURL = process.env.MONGO_URL;
@@ -31,10 +36,9 @@ const port = process.env.PORT || 3000;
 // set up home route
 app.get('/', (request, respond) => {
   respond.status(200).json({
-    message: 'Welcome to Project Support',
+    message: 'Welcome to Onos',
   });
 });
-
 
 app.listen(port, (request, respond) => {
   console.log(`Our server is live on ${port}. Yay!`);
