@@ -3,6 +3,7 @@ const Transaction = require('../models/transaction');
 
 exports.getAllUsers = async (req, res) => {
     try {
+        res.header("Access-Control-Allow-Origin", "*");
         const users = await User.find();
         res.status(200).json(users);
     } catch (error) {
