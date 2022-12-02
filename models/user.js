@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    slug: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     money: {
         type: Number,
         required: true,

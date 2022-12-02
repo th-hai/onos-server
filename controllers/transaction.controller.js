@@ -3,7 +3,29 @@ const Transaction = require('../models/transaction');
 exports.getAllTransactions = async (req, res) => {
     try {
         const transactions = await Transaction.find().populate('paidUserId').populate('unpaidUsers.userId');
-        res.status(200).json(transactions);
+
+        const response = transactions.map((tran, index) => {
+            const { paidUserId, unpaidUsers, totalValue, description, createdAt } = tran;
+            const key = paidUserId.slug;
+            const paidUser = {[key]: totalValue};
+
+            unpaidUsers.forEach(unpaidUser => {
+                const key = unpaidUser.userId.slug;
+                paidUser[key] = -unpaidUser.value;
+            });
+
+            // Merge paidUser with unpaidUsers
+            const result = {
+                id: index,
+                ...paidUser,
+                description,
+                createdAt,
+            }
+
+            return result;
+        })
+
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json(error);
     }
