@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllUsers, getUserById, createUser, bulkUpdateUserMoney, updateUserMoneyWithSameCost, userFilter } = require('../controllers/user.controller');
-const { getAllTransactions, getTransactionById, filter } = require('../controllers/transaction.controller');
+const { getAllTransactions, getTransactionById, filter, getTransactionMonthly } = require('../controllers/transaction.controller');
 
 const router = express.Router();
 
@@ -17,6 +17,7 @@ router.get('/users/search/name', userFilter);
 router.get('/transactions', getAllTransactions);
 router.get('/transactions/:id', getTransactionById);
 router.get('/transactions/filter', filter);
+router.get('/transaction-monthly', getTransactionMonthly);
 
 
 module.exports = router;
